@@ -28,7 +28,7 @@ Tested on:
 ### Berksfile
 As an example, the following berksfile would work.
 
-```
+```ruby
 site :opscode
 
 cookbook 'git'
@@ -42,9 +42,9 @@ It uses ruby and foreman to starting/stopping application.
 
 Attributes
 ==========
-By default, it downloads dynamo application files and install them in /usr/local path. It can be changed using the following attributes.
+By default, it downloads dynamo sample application files (https://github.com/parroty/dynamo_sample.git) and install them in /usr/local path. It can be changed using the following attributes.
 
-* `node[:dynamo][:source][:repo]` - git repository path where dynamo application is stored.
+* `node[:dynamo][:source][:repo]` - git repository path where dynamo application files are stored.
 * `node[:dynamo][:install_path]` - installation path for dynamo application.
 * `node[:dynamo][:service][:name]` - name of dynamo start/stop service.
 * `node[:dynamo][:service][:user]` - user for starting dynamo application.

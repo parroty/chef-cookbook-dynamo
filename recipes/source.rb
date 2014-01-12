@@ -37,13 +37,24 @@ gem_package "foreman"
 if node[:dynamo][:flags][:use_ecto]
   include_recipe "build-essential"
 
+  # install PostgreSQL with pgdg option for installing latest version.
+  case node['platform_family']
+  when "rhel", "fedora", "suse"
+    node.default[:postgresql][:enable_pgdg_yum]       = node[:dynamo][:postgresql][:enable_pgdg_yum]
+    node.default[:postgresql][:version]               = node[:dynamo][:postgresql][:version]
+    node.default[:postgresql][:dir]                   = node[:dynamo][:postgresql][:dir]
+    node.default[:postgresql][:client][:packages]     = node[:dynamo][:postgresql][:client][:packages]
+    node.default[:postgresql][:server][:packages]     = node[:dynamo][:postgresql][:server][:packages]
+    node.default[:postgresql][:server][:service_name] = node[:dynamo][:postgresql][:server][:service_name]
+    node.default[:postgresql][:contrib][:packages]    = node[:dynamo][:postgresql][:contrib][:packages]
+  end
+  node.default[:postgresql][:password][:postgres] = node[:dynamo][:ecto][:database_password]
+  include_recipe "postgresql::server"
+
   # create database and user
   db_user     = node[:dynamo][:ecto][:database_user]
   db_name     = node[:dynamo][:ecto][:database_name]
   db_password = node[:dynamo][:ecto][:database_password]
-
-  node.default[:postgresql][:password][:postgres] = node[:dynamo][:ecto][:database_password]
-  include_recipe "postgresql::server"
 
   execute "create root user" do
     user "postgres"
@@ -72,6 +83,7 @@ end
 # prepare dynamo application
 git "dynamo" do
   repository node[:dynamo][:source][:repo]
+  revision node[:dynamo][:source][:revision]
   destination node[:dynamo][:install_path]
   action :sync
 end

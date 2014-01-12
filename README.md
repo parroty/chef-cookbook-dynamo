@@ -19,6 +19,7 @@ Tested on Chef 11.8.2.
 Tested on:
 
 * Ubuntu 13.04
+* CentOS 6.4
 
 **Notes**: This cookbook has been tested on the listed platforms, but not with the all combinations of parameters. It may work on other platforms with or without modification.
 
@@ -63,8 +64,11 @@ $ stop dynamo
 dynamo stop/waiting
 ```
 
-Using Ecto
+
+Setup Notes
 ==========
+
+### Using Ecto
 By configuring attributes, this cookbook can setup Ecto with PostgreSQL database along with dynamo application.
 
 * `node[:dynamo][:flags][:use_ecto]` - true/false flag to setup Ecto and PostgreSQL.
@@ -107,6 +111,13 @@ cookbook 'elixir', git: 'git://github.com/parroty/chef-cookbook-elixir.git'
 cookbook 'dynamo', git: 'git://github.com/parroty/chef-cookbook-dynamo.git'
 cookbook 'postgresql'
 ```
+
+
+### Using on CentOS
+By default, old versions of PostgreSQL (which Ecto does not support) will be installed. Therefore, this cookbook applies yum_pgdg_postgresql (https://github.com/hw-cookbooks/postgresql#yum_pgdg_postgresql) option of postgresql cookbook.
+
+The default version is set as "9.2", and it can be changed by `default[:dynamo][:postgresql][***]` attributes. For the detail, check the attribute list (https://github.com/parroty/chef-cookbook-dynamo/blob/master/attributes/default.rb) and the README of the above postgresql cookbook.
+
 
 TODO
 ==========

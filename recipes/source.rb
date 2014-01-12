@@ -37,13 +37,6 @@ gem_package "foreman"
 if node[:dynamo][:flags][:use_ecto]
   include_recipe "build-essential"
 
-  # setup prerequisites
-  %w(make libpq-dev ruby-dev).each do |pkg|
-    package pkg do
-      action :install
-    end
-  end
-
   # create database and user
   db_user     = node[:dynamo][:ecto][:database_user]
   db_name     = node[:dynamo][:ecto][:database_name]
@@ -125,7 +118,7 @@ end
 
 service node[:dynamo][:service][:name] do
   provider Chef::Provider::Service::Upstart
-  supports :restart => true
+  supports :status => true, :restart => true, :reload => false
   action [ :enable, :start ]
 end
 

@@ -96,6 +96,18 @@ config.vm.provision :chef_solo do |chef|
 end
 ```
 
+Also, add 'postgres' to the cookbook list.
+
+```ruby
+site :opscode
+
+cookbook 'git'
+cookbook 'erlang', git: 'https://github.com/opscode-cookbooks/erlang.git'
+cookbook 'elixir', git: 'git://github.com/parroty/chef-cookbook-elixir.git'
+cookbook 'dynamo', git: 'git://github.com/parroty/chef-cookbook-dynamo.git'
+cookbook 'postgresql'
+```
+
 TODO
 ==========
 - Find proper way to start/stop services. It doesn't stop properly yet.

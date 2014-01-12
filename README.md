@@ -95,3 +95,8 @@ config.vm.provision :chef_solo do |chef|
   }
 end
 ```
+
+TODO
+==========
+- Find proper way to start/stop services. It doesn't stop properly yet.
+  - Check beam process PID by [netstat -tanp] and run [kill -9 PID].

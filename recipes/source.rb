@@ -104,6 +104,15 @@ if node[:dynamo][:flags][:perform_migration]
 end
 
 # start dynamo application
+bash "ensure to change owner to service user" do
+  code <<-EOH
+  chown -R #{node[:dynamo][:service][:user]} #{node[:dynamo][:install_path]}
+  chgrp -R #{node[:dynamo][:service][:user]} #{node[:dynamo][:install_path]}
+  EOH
+  action :run
+  not_if "stat -c %U #{node[:dynamo][:install_path]} | grep #{node[:dynamo][:service][:user]}"
+end
+
 bash "start dynamo" do
   cwd node[:dynamo][:install_path]
   code <<-EOH

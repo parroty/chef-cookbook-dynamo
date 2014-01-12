@@ -100,3 +100,9 @@ TODO
 ==========
 - Find proper way to start/stop services. It doesn't stop properly yet.
   - Check beam process PID by [netstat -tanp] and run [kill -9 PID].
+
+```
+root@default:~# netstat -tanp | grep beam
+tcp        0      0 0.0.0.0:4000            0.0.0.0:*               LISTEN      24586/beam
+root@default:~# kill -9 24586
+```

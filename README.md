@@ -18,7 +18,7 @@ Tested on Chef 11.8.2.
 
 Tested on:
 
-* Ubuntu 13.04
+* Ubuntu 12.10, 13.04
 * CentOS 6.4
 
 **Notes**: This cookbook has been tested on the listed platforms, but not with the all combinations of parameters. It may work on other platforms with or without modification.
@@ -118,6 +118,16 @@ By default, old versions of PostgreSQL (which Ecto does not support) will be ins
 
 The default version is set as "9.2", and it can be changed by `default[:dynamo][:postgresql][***]` attributes. For the detail, check the attribute list (https://github.com/parroty/chef-cookbook-dynamo/blob/master/attributes/default.rb) and the README of the above postgresql cookbook.
 
+### Using on Ubuntu
+When using older version of Ubuntu (ex. 12.10), there is a case that [404 Not Found] error occurs around build_essential installation. If so, adding the following attribute might avoid the error.
+
+```ruby
+chef.json = {
+  "build_essential" => {
+    "compiletime" => true
+  }
+}
+```
 
 TODO
 ==========

@@ -35,6 +35,10 @@ gem_package "foreman"
 
 # prepare database
 if node[:dynamo][:flags][:use_ecto]
+  # setup prerequisites
+  if platform_family?("debian")
+    include_recipe "apt"
+  end
   include_recipe "build-essential"
 
   # install PostgreSQL with pgdg option for installing latest version.

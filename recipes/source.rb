@@ -98,7 +98,7 @@ end
 
 bash "prepare dynamo" do
   cwd node[:dynamo][:install_path]
-  code "mix deps.get"
+  code "mix deps.get && mix deps.compile"
   action :nothing
   subscribes :run, "git[dynamo]", :immediately
 end

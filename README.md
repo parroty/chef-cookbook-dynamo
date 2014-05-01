@@ -64,6 +64,11 @@ $ stop dynamo
 dynamo stop/waiting
 ```
 
+If the above is not working, go to the install path and start the dynamo manually.
+```Shell
+$ cd /usr/local/lib/dynamo/
+$ mix server
+```
 
 Setup Notes
 ==========

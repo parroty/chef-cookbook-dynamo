@@ -6,7 +6,6 @@ description      "Install dynamo"
 long_description IO.read(File.join(File.dirname(__FILE__), "README.md"))
 version          "0.0.1"
 
-depends "elixir"
 depends "build-essential"
 depends "openssl"         # depends on build-essential
 depends "postgresql"      # depends on openssl
